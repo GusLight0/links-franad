@@ -1,84 +1,63 @@
-# Guia de Edição - Link na Bio Premium
+# Bio-Links (Cliente) — Projeto de Portfólio
 
-Este guia explica como personalizar o seu site "Link na Bio" de forma simples. Você não precisa entender de programação, apenas editar um arquivo de texto.
+Este é um projeto **oficial desenvolvido para um cliente**, servindo como um site "Link na Bio" com foco em profissionais (advocacia, consultoria, serviços) que querem um painel limpo, elegante e fácil de atualizar.
 
-## 📂 Onde estão os meus dados?
+## 🧩 Visão Geral do Projeto
+- Projeto estático 100% front-end (não requer backend)
+- Conteúdo configurável via `config.js` (sem necessidade de tocar em HTML/CSS)
+- Experiência mobile-first, com visual moderno e foco em conversão (CTA, WhatsApp, links rápidos)
 
-Todas as informações do site (nome, foto, links, cores) estão centralizadas no arquivo:
-**`config.js`**
+## 🛠 Tecnologias Utilizadas
+- **HTML5** (estrutura semântica)
+- **CSS3** com layout responsivo e animações sutis
+- **JavaScript (ES6+)** para injeção dinâmica de conteúdo e recursos interativos
+- **Remix Icon** para ícones (botões, links, destaque)
+- **QRCode.js** para gerar QR Code do cartão de visita
 
-## 🛠️ Como editar
+## ✨ Funcionalidades Principais
+- ✅ Personalização completa via `config.js`
+- ✅ Botão destaque (call-to-action) com ícone customizável
+- ✅ Lista de links/botões com destaque e ícone
+- ✅ Card digital (QR Code) + download de “cartão” (imagem personalizada)
+- ✅ Chat interativo com perguntas e respostas pré-configuradas
+- ✅ Tema customizável (cores, fundo, vídeo de background)
+- ✅ Transições suaves e experiência otimizada para mobile
 
-1.  Localize o arquivo `config.js` na pasta do projeto.
-2.  Clique com o botão direito nele e escolha **"Abrir com" -> "Bloco de Notas"** (ou qualquer editor de texto simples).
-3.  Faça as alterações necessárias no texto.
-4.  Salve o arquivo (`Ctrl + S`).
-5.  Abra o arquivo `index.html` no seu navegador para ver o resultado.
+## 🧩 Como Customizar (Configuração Rápida)
+A personalização é feita em `config.js`. Edite apenas esse arquivo para:
+- Atualizar o perfil (nome, bio, foto e download)
+- Configurar o botão principal (WhatsApp, link de agenda, landing page)
+- Adicionar/editar/remover links (Instagram, LinkedIn, serviços, etc.)
+- Ajustar cores, imagem/vídeo de background e partículas
+- Ativar/desativar o chat e editar as perguntas
 
----
-
-## ⚠️ Regras de Ouro (Para não quebrar o site)
-
-1.  **Mantenha as aspas:** O texto deve estar sempre entre aspas duplas.
-    *   ✅ Correto: `name: "Mariana Fontes",`
-    *   ❌ Errado: `name: Mariana Fontes,`
-2.  **Cuidado com as vírgulas:** Não apague as vírgulas no final das linhas.
-3.  **Verdadeiro ou Falso:** Para opções de ligar/desligar (como `highlight`), use `true` ou `false` **sem aspas**.
-
----
-
-## 📝 O que alterar (Passo a Passo)
-
-### 1. Perfil (Nome e Bio)
-Procure pela seção `profile` no início do arquivo.
-```javascript
-profile: {
-    initials: "MF",          // Suas iniciais (aparecem na tela de carregamento)
-    name: "Seu Nome Aqui",   // Nome principal
-    title: "Sua Especialidade", 
-    bio: "Sua biografia curta...",
-    // ...
-},
-```
-
-### 2. Foto de Perfil
-Em `avatarUrl`, você pode usar um link da internet ou um arquivo local.
-*   **Link:** `"https://site.com/foto.jpg"`
-*   **Arquivo:** Se a foto estiver na mesma pasta do site, coloque apenas o nome: `"minha-foto.jpg"`
-
-### 3. Botão Principal (Destaque)
-É o botão preto/dourado logo abaixo da bio.
-```javascript
-mainAction: {
-    text: "Agendar Consultoria",
-    url: "https://wa.me/5511999999999", // Link do WhatsApp (use formato internacional 55...)
-    icon: "ri-whatsapp-line"
-},
-```
-
-### 4. Links e Botões
-Os links ficam na lista `links: [ ... ]`. Cada bloco entre chaves `{ }` representa um botão.
-
-**Exemplo de botão:**
-```javascript
-{
-    title: "Instagram",
-    subtitle: "Acompanhe meu dia a dia",
-    url: "https://instagram.com/seu.perfil",
-    icon: "ri-instagram-line",
-    highlight: false // Mude para true se quiser borda dourada de destaque
-},
-```
-*Para adicionar mais botões, copie e cole o bloco acima, separando-os por vírgula.*
-
-### 5. Rodapé
-Edite a seção `footer` para alterar o número da OAB ou o texto de copyright.
+> 🔎 Não mexa em `index.html`, `style.css` ou `script.js` a menos que queira alterar o layout ou o comportamento padrão.
 
 ---
 
-## 🎨 Como mudar os ícones?
-O site usa a biblioteca **Remix Icon**.
-1.  Acesse remixicon.com.
-2.  Busque o ícone desejado (ex: "email", "map", "phone").
-3.  Copie o nome do ícone (ex: `ri-mail-send-line`).
-4.  Cole no campo `icon` dentro do `config.js`.
+## ▶️ Rodar Localmente (Teste)
+1. Abra `index.html` no navegador.
+2. Após editar `config.js`, recarregue a página.
+
+---
+
+## 🚀 Deploy (Publicação)
+O site é estático, então funciona em qualquer hospedagem de arquivos estáticos.
+Serviços recomendados:
+- GitHub Pages
+- Netlify
+- Vercel
+
+Basta apontar para `index.html` e enviar todos os arquivos do projeto.
+
+---
+
+## 📄 Sobre este projeto
+Este projeto foi entregue como um **projeto comercial para um cliente**, com design pensado para conversão e facilidade de manutenção. É uma solução leve e escalável para profissionais que querem um “Link na Bio” premium sem precisar de CMS.
+
+---
+
+## 📌 Observações importantes
+- Fotos e imagens podem ser locais (ex: `assets/img/foto.jpg`) ou URLs externas.
+- Números de WhatsApp devem usar o formato internacional (ex.: `https://wa.me/5511999999999`).
+- Para alterar ícones, use o catálogo do Remix Icon: https://remixicon.com/
