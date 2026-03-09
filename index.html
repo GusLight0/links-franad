@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link in Bio | Advocacia</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/ios-filled/50/D4AF37/scales.png" type="image/png">
+    <meta name="description" content="Conheça meus serviços jurídicos, agende uma consultoria e acesse meus conteúdos exclusivos.">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Link in Bio | Advocacia">
+    <meta property="og:description" content="Conheça meus serviços jurídicos e agende uma consultoria.">
+    <meta property="og:image" content="https://img.icons8.com/ios-filled/50/D4AF37/scales.png">
+    
+    <!-- Fonts: Playfair Display (Serif) & Lato (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons: Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+    <!-- Background Layers -->
+    <div id="bg-image"></div>
+    <video id="bg-video" autoplay muted loop playsinline></video>
+    <div id="bg-overlay"></div>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="theme-btn" aria-label="Alternar Tema"><i class="ri-moon-line"></i></button>
+    <button id="share-btn" class="share-btn" aria-label="Cartão de Visita"><i class="ri-qr-code-line"></i></button>
+
+    <!-- Loading Screen -->
+    <div id="loader" class="loader-container">
+        <div class="loader-content">
+            <span id="loader-initials" class="loader-text"></span>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container hidden" id="main-content">
+        
+        <!-- Hero Section -->
+        <header class="profile-header">
+            <div class="avatar-container">
+                <img id="profile-image" src="" alt="Foto de Perfil" class="avatar">
+            </div>
+            <h1 id="profile-name" class="name"></h1>
+            <h2 id="profile-title" class="title"></h2>
+            <p id="profile-bio" class="bio"></p>
+        </header>
+
+        <!-- Main CTA -->
+        <div class="cta-container">
+            <a id="main-cta" href="#" class="btn btn-primary">
+                <i id="cta-icon"></i>
+                <span id="cta-text"></span>
+            </a>
+        </div>
+
+        <!-- Links List -->
+        <div id="links-list" class="links-container">
+            <!-- Links will be injected here by JS -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p id="footer-text"></p>
+            <span id="footer-subtext" class="subtext"></span>
+        </footer>
+
+    </main>
+
+    <!-- Chat Widget Container -->
+    <div id="chat-widget-container"></div>
+
+    <!-- Digital Card Modal -->
+    <div id="share-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-modal" class="close-modal-btn"><i class="ri-close-line"></i></button>
+            
+            <div class="modal-header">
+                <img id="modal-avatar" src="" alt="Avatar">
+                <h3 id="modal-name"></h3>
+                <p>Escaneie para chamar no WhatsApp</p>
+            </div>
+
+            <div id="qrcode-container"></div>
+
+            <button id="download-vcard" class="btn btn-primary vcard-btn">
+                <i class="ri-image-download-line"></i> Baixar Cartão
+            </button>
+            <button id="share-native" class="btn btn-outline vcard-btn">
+                <i class="ri-share-forward-line"></i> Enviar Link
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

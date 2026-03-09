@@ -1,0 +1,779 @@
+/* --- Variables & Reset --- */
+:root {
+    --gold: #D4AF37;
+    --gold-light: #F3E5AB;
+    --black: #1A1A1A;
+    --gray: #666666;
+    --off-white: #FAFAFA;
+    --white: #FFFFFF;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --overlay-color: rgba(250, 250, 250, 0.93);
+    
+    /* Variáveis de Componentes (Para troca perfeita de tema) */
+    --container-bg: rgba(255, 255, 255, 0.70); /* Mais transparência para o efeito vidro */
+    --container-border: rgba(255, 255, 255, 0.5);
+    --card-bg: rgba(255, 255, 255, 0.65);
+    --card-highlight-bg: rgba(255, 254, 249, 0.85);
+    --chat-window-bg: rgba(255, 255, 255, 0.95);
+    --chat-body-bg: #F9F9F9;
+    --bot-msg-bg: #FFFFFF;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --off-white: #121212;
+    --black: #F5F5F5;
+    --white: #1E1E1E;
+    --gray: #B0B0B0;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --overlay-color: rgba(10, 10, 10, 0.95); /* Fundo mais escuro e imersivo */
+    
+    /* Ajustes Premium para Dark Mode */
+    --container-bg: rgba(30, 30, 30, 0.70); /* Vidro Fumê */
+    --container-border: rgba(255, 255, 255, 0.08);
+    --card-bg: rgba(30, 30, 30, 0.6);
+    --card-highlight-bg: rgba(50, 50, 50, 0.7); /* Destaque sutil no escuro */
+    --chat-window-bg: rgba(30, 30, 30, 0.95);
+    --chat-body-bg: #121212;
+    --bot-msg-bg: #2A2A2A;
+    --gold-light: #B8860B; /* Dourado mais escuro para contraste */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--off-white);
+    font-family: 'Lato', sans-serif;
+    color: var(--black);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    scroll-behavior: smooth; /* Rolagem suave nativa */
+}
+
+/* Detalhe Premium: Cor da seleção de texto */
+::selection {
+    background-color: var(--gold);
+    color: var(--white);
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* --- Loader --- */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease;
+}
+
+.loader-content {
+    text-align: center;
+    position: relative;
+}
+
+.loader-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--black);
+    letter-spacing: 5px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.loader-line {
+    width: 0;
+    height: 2px;
+    background-color: var(--gold);
+    margin: 10px auto 0;
+    animation: expandLine 1.5s ease forwards 0.5s;
+}
+
+/* --- Layout --- */
+.container {
+    max-width: 720px; /* Aumentado para telas maiores */
+    margin: 40px auto; /* Margem superior/inferior para desktop */
+    padding: 40px 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    /* Efeito Glassmorphism Premium para o Container Principal */
+    background-color: var(--container-bg);
+    backdrop-filter: blur(20px); /* Blur aumentado para suavidade */
+    -webkit-backdrop-filter: blur(20px); /* Compatibilidade com Safari/iPhone */
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.4); /* Sombra profunda + Brilho interno */
+    border: 1px solid rgba(212, 175, 55, 0.25); /* Borda Dourada Sutil */
+    position: relative; /* Garante que o z-index funcione */
+    z-index: 1; /* Coloca o conteúdo acima das partículas */
+}
+
+.container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Profile Header --- */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.avatar-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    padding: 3px;
+    border: 1px solid var(--gold);
+    animation: border-pulse 3s infinite ease-in-out;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+}
+
+.title {
+    font-size: 0.9rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+}
+
+.bio {
+    font-size: 0.95rem;
+    color: var(--gray);
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* --- Buttons & Cards --- */
+.cta-container {
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: var(--transition);
+    gap: 10px;
+    width: 100%;
+    max-width: 500px; /* Limite de largura para os botões */
+    margin: 0 auto;   /* Centraliza o botão */
+}
+
+.btn-primary {
+    background-color: var(--black);
+    color: var(--white);
+    border: 1px solid var(--black);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden; /* Necessário para o efeito de brilho */
+}
+
+/* Efeito de Brilho (Shine) ao passar o mouse */
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--black);
+    border: 1px solid var(--black);
+    margin-top: 10px;
+}
+
+.btn-outline:hover {
+    background-color: var(--off-white);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* Ajuste do botão primário no Dark Mode para manter legibilidade */
+body.dark-mode .btn-primary {
+    background-color: var(--gold);
+    color: #1A1A1A; /* Texto preto no botão dourado */
+    border-color: var(--gold);
+}
+
+body.dark-mode .btn-outline {
+    color: var(--white);
+    border-color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn-primary:hover::after {
+    left: 100%; /* Move o brilho da esquerda para a direita */
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.link-card {
+    background-color: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border: 1px solid #E5E5E5;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px; /* Limite de largura para os cards */
+    margin: 0 auto;   /* Centraliza o card */
+}
+
+.link-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.link-card.highlight {
+    border-color: var(--gold-light);
+    background-color: var(--card-highlight-bg);
+}
+
+.card-icon {
+    font-size: 1.5rem;
+    color: var(--black);
+    margin-right: 15px;
+    transition: var(--transition);
+}
+
+.link-card:hover .card-icon {
+    color: var(--gold);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--black);
+}
+
+.featured-icon {
+    color: var(--gold);
+    font-size: 0.85rem;
+    margin-left: 6px;
+    vertical-align: middle;
+    animation: pulse-gold 2s infinite ease-in-out;
+}
+
+.card-subtitle {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-top: 2px;
+}
+
+/* --- Footer --- */
+.footer {
+    margin-top: 50px;
+    text-align: center;
+    border-top: 1px solid #E5E5E5;
+    padding-top: 30px;
+}
+
+.footer p {
+    font-size: 0.8rem;
+    color: var(--black);
+    font-weight: 600;
+}
+
+.subtext {
+    font-size: 0.7rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes expandLine {
+    to { width: 60px; }
+}
+
+@keyframes pulse-gold {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes border-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+/* Animação de Destaque (Heartbeat) para o Botão Principal */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#main-cta {
+    animation: heartbeat 2s infinite ease-in-out;
+}
+
+#main-cta:hover {
+    animation: none; /* Pausa o efeito ao passar o mouse */
+}
+
+/* Staggered Animation Classes (Added by JS) */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; /* Curva mais suave */
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Chat Widget --- */
+.chat-widget-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--black);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transition: var(--transition);
+    z-index: 1000;
+    border: 2px solid var(--gold);
+}
+
+.chat-widget-btn:hover {
+    transform: scale(1.1);
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 340px; /* Largura padrão */
+    max-width: calc(100vw - 40px); /* Responsividade total: nunca excede a tela - margens */
+    max-height: 500px;
+    background-color: var(--chat-window-bg); /* Fundo semi-transparente */
+    backdrop-filter: blur(10px); /* Efeito de vidro fosco (Hardcore Premium) */
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+    transition: var(--transition);
+    border: 1px solid #E5E5E5;
+}
+
+.chat-window.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.chat-header {
+    background-color: var(--black);
+    color: var(--off-white); /* Garante contraste no header */
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--gold);
+}
+
+.chat-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+}
+
+.chat-close {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.chat-body {
+    padding: 15px;
+    background-color: var(--chat-body-bg);
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 350px;
+    scroll-behavior: smooth; /* Rolagem suave nativa */
+}
+
+.message {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    max-width: 85%;
+    line-height: 1.4;
+    animation: messageSlideIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; /* Animação de entrada */
+}
+
+.message.bot {
+    background-color: var(--bot-msg-bg);
+    border: 1px solid #E5E5E5;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+.message.user {
+    background-color: var(--black);
+    color: var(--off-white);
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+/* Remove borda branca feia no dark mode */
+body.dark-mode .message.bot {
+    border-color: #333;
+}
+
+/* Typing Indicator (Os 3 pontinhos pulando) */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    width: fit-content;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #999;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+@keyframes messageSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-options {
+    padding: 10px 15px 15px;
+    background-color: var(--chat-window-bg);
+    border-top: 1px solid #E5E5E5;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chat-option-btn {
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--black);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+}
+
+body.dark-mode .chat-option-btn {
+    color: var(--black); /* Texto claro no dark mode */
+    border-color: var(--gold);
+}
+
+.chat-option-btn:hover {
+    background-color: var(--gold);
+    color: var(--white);
+}
+
+/* --- Responsividade Hardcore (Mobile & Small Screens) --- */
+@media (max-width: 480px) {
+    .container {
+        margin: 0; /* Remove margem externa no mobile para imersão total */
+        min-height: 100vh; /* Ocupa toda a altura */
+        border-radius: 0; /* Remove bordas arredondadas nos cantos da tela */
+        background-color: var(--container-bg); /* Usa a variável para respeitar o tema */
+    }
+
+    .chat-window {
+        bottom: 85px; /* Ajuste fino para mobile */
+        right: 20px;
+        left: 20px; /* Centraliza forçadamente se necessário */
+        width: auto; /* Ocupa o espaço disponível */
+        margin: 0 auto;
+    }
+
+    /* Ajustes de Texto para Mobile */
+    .name {
+        font-size: 1.5rem; /* Reduzido de 1.8rem */
+    }
+
+    .title {
+        font-size: 0.8rem; /* Reduzido de 0.9rem */
+        margin-bottom: 10px;
+    }
+
+    .bio {
+        font-size: 0.85rem; /* Reduzido de 0.95rem */
+        line-height: 1.5;
+    }
+
+    .btn {
+        padding: 14px 20px; /* Botão um pouco mais compacto */
+        font-size: 0.95rem;
+    }
+}
+
+/* --- Background Layers --- */
+#particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Fica entre o fundo (-1) e o conteúdo (1) */
+}
+
+#bg-image {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+#bg-image.loaded {
+    opacity: 1;
+}
+
+#bg-video {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2; /* Mesmo nível da imagem, mas declarado depois no HTML para ficar por cima */
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+#bg-video.loaded {
+    opacity: 1;
+}
+
+#bg-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    background-color: var(--overlay-color);
+    transition: background-color 0.3s ease;
+}
+
+/* --- Theme Toggle Button --- */
+.theme-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--container-bg); /* Integra com o tema */
+    color: var(--black);
+    border: 1px solid var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    font-size: 1.2rem;
+    backdrop-filter: blur(5px);
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* --- Share/Card Button --- */
+.share-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px; /* Lado oposto do tema */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--container-bg);
+    color: var(--black);
+    border: 1px solid var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1100;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    font-size: 1.2rem;
+    backdrop-filter: blur(5px);
+}
+
+.share-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* --- Modal Cartão de Visita --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 320px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    border: 1px solid var(--gold);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: none; border: none;
+    font-size: 1.5rem; color: var(--gray);
+    cursor: pointer;
+}
+
+#modal-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    object-fit: cover; margin-bottom: 10px;
+    border: 2px solid var(--gold);
+}
+
+#qrcode-container {
+    margin: 20px auto;
+    display: flex; justify-content: center;
+}
+
+.vcard-btn {
+    width: 100%;
+    margin-top: 10px;
+}
