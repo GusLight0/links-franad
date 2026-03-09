@@ -52,7 +52,7 @@ const config = {
             icon: "ri-building-2-line",
             highlight: true, // Borda dourada para destaque
             featured: false,
-            image: "./assets/img/card-visita.png" // 📸 Foto representativa (Ex: Escritório)'
+            image: "./assets/img/card-visita.png" // 📸 Foto representativa (Ex: Escritório)
         }
     ],
 

@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctaText = document.getElementById('cta-text');
 
     ctaBtn.href = config.mainAction.url;
+    ctaBtn.target = "_blank";
+    ctaBtn.rel = "noopener noreferrer";
     ctaIcon.className = config.mainAction.icon;
     ctaText.textContent = config.mainAction.text;
 
