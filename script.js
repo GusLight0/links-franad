@@ -83,12 +83,36 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const featuredIcon = link.featured ? '<i class="ri-star-fill featured-icon"></i>' : '';
 
+        // Lógica para Preview de Imagem (Mapa, etc)
+        let imageHtml = '';
+        let contentWrapperStart = '';
+        let contentWrapperEnd = '';
+
+        if (link.image) {
+            a.style.flexDirection = 'column'; // Muda para coluna
+            a.style.alignItems = 'stretch';   // Estica o conteúdo
+            // Cria um wrapper para manter o ícone e texto alinhados
+            contentWrapperStart = '<div style="display:flex; align-items:center;">';
+            contentWrapperEnd = '</div>';
+
+            // Verifica se é um link de embed do Google Maps
+            if (link.image.includes('google.com/maps/embed')) {
+                imageHtml = `<iframe src="${link.image}" class="link-preview" style="width:100%; height:180px; border:0; border-radius:6px; margin-top:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+            } else {
+                // Caso contrário, trata como uma imagem normal
+                imageHtml = `<img src="${link.image}" class="link-preview" style="width:100%; height:160px; object-fit:cover; border-radius:6px; margin-top:12px; border:1px solid rgba(0,0,0,0.1);">`;
+            }
+        }
+
         a.innerHTML = `
+            ${contentWrapperStart}
             <i class="${link.icon} card-icon"></i>
             <div class="card-content">
                 <span class="card-title">${link.title} ${featuredIcon}</span>
                 ${link.subtitle ? `<span class="card-subtitle">${link.subtitle}</span>` : ''}
             </div>
+            ${contentWrapperEnd}
+            ${imageHtml}
         `;
 
         linksContainer.appendChild(a);
@@ -218,15 +242,21 @@ document.addEventListener('DOMContentLoaded', () => {
         chatClose.addEventListener('click', toggleChat);
 
         // Render Questions
+        const optionButtons = [];
+
         config.chat.questions.forEach(q => {
             const btn = document.createElement('button');
             btn.className = 'chat-option-btn';
             btn.textContent = q.question;
-            
+            optionButtons.push(btn);
+
             btn.addEventListener('click', () => {
+                // Oculta a opção para evitar acúmulo
+                btn.style.display = 'none';
+
                 // Add User Message
                 addMessage(q.question, 'user');
-                
+
                 // Simulate Typing Delay
                 showTypingIndicator().then(() => {
                     addMessage(q.answer, 'bot');
@@ -235,6 +265,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             chatOptions.appendChild(btn);
         });
+
+        // Reset Conversation Button
+        const resetBtn = document.createElement('button');
+        resetBtn.className = 'chat-reset-btn';
+        resetBtn.textContent = 'Resetar conversa';
+        resetBtn.title = 'Limpar chat e mostrar as opções novamente';
+
+        resetBtn.addEventListener('click', () => {
+            // Limpa a conversa e reexibe a mensagem de boas-vindas
+            chatBody.innerHTML = '';
+            addMessage(config.chat.welcomeMessage, 'bot');
+
+            // Reexibe todas as opções anteriores
+            optionButtons.forEach(b => {
+                b.style.display = '';
+                b.disabled = false;
+            });
+        });
+
+        chatOptions.appendChild(resetBtn);
 
         function addMessage(text, sender) {
             const msgDiv = document.createElement('div');
@@ -307,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Limpa container anterior se houver
     qrContainer.innerHTML = '';
     new QRCode(qrContainer, {
-        text: config.mainAction.url, // Usa o link principal (WhatsApp)
+        text: config.profile.qrcodeUrl || config.mainAction.url, // Usa o link do QR Code ou o principal
         width: 180,
         height: 180,
         colorDark : config.theme.primaryColor === '#D4AF37' ? "#000000" : config.theme.primaryColor,

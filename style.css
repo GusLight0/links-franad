@@ -669,6 +669,26 @@ body.dark-mode .chat-option-btn {
     color: var(--white);
 }
 
+.chat-reset-btn {
+    background-color: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--black);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.chat-reset-btn:hover {
+    opacity: 0.9;
+}
+
+body.dark-mode .chat-reset-btn {
+    color: var(--black);
+}
+
 /* --- Responsividade Hardcore (Mobile & Small Screens) --- */
 @media (max-width: 480px) {
     .container {
