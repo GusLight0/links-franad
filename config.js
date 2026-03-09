@@ -59,7 +59,7 @@ const config = {
     // 4. Credibility / Footer
     footer: {
         text: "© 2026| Franad Rocha Advocacia",
-        subtext: "Excelência e discrição."
+        subtext: "Técnica, Ética & Responsabilidade"
     },
 
     // 5. Theme Settings
